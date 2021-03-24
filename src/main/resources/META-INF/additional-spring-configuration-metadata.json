@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "jdbc",
+      "type": "java.lang.String",
+      "description": "Description for jdbc."
+  }
+] }
