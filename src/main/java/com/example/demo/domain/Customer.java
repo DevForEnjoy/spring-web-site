@@ -16,6 +16,9 @@ public class Customer {
     private String lastName;
     private float money;
 
+    public Customer() {
+    }
+
     public void setMoney(float money) {
         this.money = money;
     }

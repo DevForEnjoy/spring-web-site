@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>You first Spring application</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<form action="/add" method="POST">
+<form th:action="@{/add}"  method="POST">
     <p>Let's add a customer.</p>
 
     <div>
@@ -15,6 +15,10 @@
     <div>
         <label for="lastName">Last name:</label>
         <input name="last" id="lastName" value="Simpson">
+    </div>
+    <div>
+        <label for="Money">Money:</label>
+        <input name="money" id="Money" value="1">
     </div>
     <div>
         <button>Add customer</button>

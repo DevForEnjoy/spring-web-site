@@ -2,11 +2,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>ALkey Games</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
 </head>
 <body>
-<h1>Welcome!</h1>
+<header>
+    <div class="container">
+        <div class="nav">
+            <ul class="menu">
+                <li style="color: aliceblue">
+                    ALkey Games
+                </li>
+                <li>
+                    <a href="https://play.google.com/store/apps/details?id=com.ALkey.Rush&hl=ru">
+                        Google play
+                    </a>
+                </li>
 
-<p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+                <li>
+                    <a href="/index">Кабинет</a>
+                </li>
+                <li>
+                    <a th:if="${param.login}" href="@{/login}">Войти</a>
+                </li>
+                <li style="color: aliceblue">
+                    Hello [[${#httpServletRequest.remoteUser}]]!
+                </li>
+                <li>
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" value="Sign Out"/>
+                    </form>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section>
+    <img th:src="@{/images/back.jpg}" alt="альтернативный текст"/>
+</section>
+
+<footer>
+    L
+</footer>
 </body>
 </html>
