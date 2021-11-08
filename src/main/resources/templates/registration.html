@@ -2,14 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example </title>
+    <title>Регистрация </title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/regCSS.css}">
 </head>
 <body>
-Add new User
-<form th:action="@{/registration}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+
+<div class="form" th:action="@{/registration}" method="post">
+    <h1>Регистрация </h1>
+
+    <div class="input-form">
+        <label> ФИО  <input type="text" name="username"/>
+        </label></div>
+
+    <div class="input-form">
+        <label style="text-transform: none"> Пароль <input type="password" name="password"/>
+        </label></div>
+
+    <div class="input-form">
+        <input type="submit" value="Зарегестрироваться"/></div>
+</div>
 </body>
 </html>
