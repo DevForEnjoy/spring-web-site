@@ -3,49 +3,36 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>ALkey Games</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <title>Минсктранс</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
 </head>
 <body>
-<header>
+<header class="header">
     <div class="container">
-        <div class="nav">
-            <ul class="menu">
-                <li style="color: aliceblue">
-                    ALkey Games
-                </li>
-                <li>
-                    <a href="https://play.google.com/store/apps/details?id=com.ALkey.Rush&hl=ru">
-                        Google play
-                    </a>
-                </li>
+        <div class="header_inner">
 
-                <li>
-                    <a href="/index">Кабинет</a>
-                </li>
-                <li>
-                    <a th:if="${param.login}" href="@{/login}">Войти</a>
-                </li>
-                <li style="color: aliceblue">
-                    Hello [[${#httpServletRequest.remoteUser}]]!
-                </li>
-                <li>
-                    <form th:action="@{/logout}" method="post">
-                        <input type="submit" value="Sign Out"/>
-                    </form>
-                </li>
+            <div>
+                <img class="header_logo" th:src="@{/img/logo.jpg}" alt="альтернативный текст"/>
+            </div>
 
-            </ul>
+            <nav class="nav">
+                <a class="nav_link" href="https://minsktrans.by/">Минсктранс</a>
+                <a class="nav_link" href="/index">Кабинет</a>
+            </nav>
+
         </div>
     </div>
 </header>
 
-<section>
-    <img th:src="@{/images/back.jpg}" alt="альтернативный текст"/>
+<section class="section">
+    <div class="sec_container">
+        Section
+
+    </div>
 </section>
 
 <footer>
-    L
+
 </footer>
 </body>
 </html>

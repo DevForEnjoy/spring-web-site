@@ -19,8 +19,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/images/**").permitAll();
-        http.authorizeRequests().antMatchers("/css/**").permitAll();
+
+        String[] staticResources  =  {
+                "/css/**",
+                "/img/**",
+                "/fonts/**",
+                "/scripts/**",
+        };
+
+        http.authorizeRequests().antMatchers(staticResources).permitAll();
+
         http
                     .authorizeRequests()
                     .antMatchers("/", "/registration","/home").permitAll()
