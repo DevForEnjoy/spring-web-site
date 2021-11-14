@@ -8,27 +8,27 @@
 <body>
 
 <div th:if="${param.error}">
-    Invalid username and password.
+    Не правильный пароль или имя пользователя
 </div>
 <div th:if="${param.logout}">
-    You have been logged out.
+    Вы вышли
 </div>
 
 
 
-<div class="form" th:action="@{/login}" method="post">
+<form class="form" th:action="@{/login}" method="post">
     <h1>Вход</h1>
     <div class="input-form">
-        <input type="text" name="Логин"/>
+        <input type="text" name="username"/>
     </div>
     <div class="input-form">
-        <input  type="password" name="Пароль"/>
+        <input  type="password" name="password"/>
     </div>
     <div class="input-form">
-        <input type="submit" value="Войти"/>
+        <input type="submit" value="login"/>
     </div>
     <a href="/registration">Регистрация</a>
-</div>
+</form>
 
 
 </body>

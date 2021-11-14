@@ -17,30 +17,7 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
 
-        String[] staticResources  =  {
-                "/css/**",
-                "/img/**",
-                "/fonts/**",
-                "/scripts/**",
-        };
-
-        http.authorizeRequests().antMatchers(staticResources).permitAll();
-
-        http
-                    .authorizeRequests()
-                    .antMatchers("/", "/registration","/home").permitAll()
-                    .anyRequest().authenticated()
-                .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                .and()
-                    .logout()
-                    .permitAll();
-    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -49,5 +26,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
                 .usersByUsernameQuery("select username, password, active from users where username=?")
                 .authoritiesByUsernameQuery("select u.username,ur.roles from users u inner join user_role ur on u.id = ur.user_id where u.username=?");
+
+        auth.inMemoryAuthentication()
+                .withUser("a")
+                .roles("ADMIN")
+                .password("{noop}p")
+                .and()
+                .withUser("al")
+                .password("{noop}pass")
+                .roles("USER");
     }
+
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        String[] staticResources = {
+                "/css/**",
+                "/img/**",
+                "/fonts/**",
+                "/scripts/**",
+        };
+
+        http.authorizeRequests().antMatchers(staticResources).permitAll();
+
+        http.authorizeRequests()
+                .antMatchers("/", "/registration", "/home","/logout").permitAll()
+                .antMatchers("/logout").hasAnyAuthority()
+                .antMatchers("/index").hasAnyRole("USER","ADMIN")
+                .antMatchers("/**").hasRole("ADMIN")
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll();
+
+    }
+
 }
