@@ -1,5 +1,7 @@
 package com.example.demo.domain;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

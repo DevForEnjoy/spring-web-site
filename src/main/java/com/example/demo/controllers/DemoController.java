@@ -3,9 +3,11 @@ package com.example.demo.controllers;
 import com.example.demo.domain.Customer;
 import com.example.demo.repos.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@PreAuthorize("ADMIN")
 public class DemoController {
 
     @Autowired
