@@ -1,35 +1,33 @@
 package com.example.demo.controllers;
 
-import com.example.demo.domain.Customer;
-import com.example.demo.repos.CustomerRepository;
+import com.example.demo.domain.Message;
+import com.example.demo.repos.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
+import java.util.Map;
+
 @RestController
-@PreAuthorize("ADMIN")
 public class DemoController {
-
     @Autowired
-    private CustomerRepository customerRepository;
+    private MessageRepo messageRepo;
 
-    @PostMapping("/add")
-    public String addCustomer(@RequestParam String first, @RequestParam String last,@RequestParam float money) {
-        Customer customer = new Customer();
-        customer.setFirstName(first);
-        customer.setLastName(last);
-        customer.setMoney(money);
-        customerRepository.save(customer);
-        return "Added new customer to repo!";
+    @PostMapping(path = "/add")
+    public String add(@RequestParam Integer sender, @RequestParam Integer host,
+                      @RequestParam(required = false) boolean file,
+                      @RequestParam String text, Map<String, Object> model){
+
+        boolean b = file;
+
+        Message message = new Message(sender, host,b,text);
+
+        messageRepo.save(message);
+
+        return "index";
     }
-
-    @GetMapping("/list")
-    public Iterable<Customer> getCustomers() {
-        return customerRepository.findAll();
-    }
-
-    @GetMapping("/find/{id}")
-    public Customer findCustomerById(@PathVariable Integer id) {
-        return customerRepository.findCustomerById(id);
+    @GetMapping(path = "/all")
+    public Iterable<Message> getMessages(){
+        return messageRepo.findAll();
     }
 }
