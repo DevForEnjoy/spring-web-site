@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>ЭДО</title>
+<title>ЭДО</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
@@ -22,41 +22,23 @@
 
 <section class="section">
 <div class="sec_container">
+  <p th:text="'Hello, ' + ${name.getUsername()}+'!'"></p>
 
-    <form th:action="@{/add}"  method="POST">
-        <p>Введите сообщение.</p>
-
-        <div>
-            <label for="Sender">Отправитель:</label>
-            <input type="number" name="sender" id="Sender" value="1">
-        </div>
-        <div>
-            <label for="Host">Получатель:</label>
-            <input type="number" name="host" id="Host" value="2">
-        </div>
-        <div>
-            <label for="File">Это файл?:</label>
-            <input type="checkbox"  name="file" id="File">
-
-        </div>
-        <div>
-            <label for="Text">Текст:</label>
-            <input type="text" name="text" id="Text">
-        </div>
-
-        <div>
-            <button type="submit">Отправить</button>
-        </div>
+    <form action="main\add">
+        <input type="submit" value="Создать Сообщение" />
     </form>
 
-
-    <form action="/all" method="GET">
-        <button>Список Сообщений</button>
-    </form>
-</div>
-    <div class="massages">
-
+    <div>
+        <div th:each="el : ${messages}">
+            <div th:if="${el.getSender()==2}">
+            <p th:text="${el.getSender()}"></p>
+            <p th:text="${el.getText()}"></p>
+            <a th:href="'/main/'+${el.getId()}">Детальнее</a>
+            </div>
+        </div>
     </div>
+</div>
+
 </section>
 
 </body>

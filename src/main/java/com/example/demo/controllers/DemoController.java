@@ -3,9 +3,8 @@ package com.example.demo.controllers;
 import com.example.demo.domain.Message;
 import com.example.demo.repos.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
 import java.util.Map;
 
 @RestController
@@ -30,4 +29,5 @@ public class DemoController {
     public Iterable<Message> getMessages(){
         return messageRepo.findAll();
     }
+
 }
