@@ -12,7 +12,7 @@ public class Message {
 
     }
 
-    public Message(Integer sender, Integer host, Boolean file, String text) {
+    public Message(Long sender, Long host, Boolean file, String text) {
         this.sender = sender;
         this.host = host;
         this.file = file;
@@ -21,44 +21,42 @@ public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
-    private Integer sender;
-    private Integer host;
+    private Long sender;
+    private Long host;
     private boolean file;
     private String text;
 
-
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getSender() {
+    public Long getSender() {
         return sender;
     }
 
-    public void setSender(Integer sender) {
+    public void setSender(Long sender) {
         this.sender = sender;
     }
 
-    public Integer getHost() {
+    public Long getHost() {
         return host;
     }
 
-    public void setHost(Integer host) {
+    public void setHost(Long host) {
         this.host = host;
     }
 
-    public Boolean getFile() {
+    public boolean isFile() {
         return file;
     }
 
-    public void setFile(Boolean file) {
+    public void setFile(boolean file) {
         this.file = file;
     }
 

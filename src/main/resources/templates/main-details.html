@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ЭДО</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header_inner">
+            <a class="header_logo" href="/home">Главная</a>
+
+            <nav class="nav">
+                <form class="nav_link" th:action="@{/logout}" method="post">
+                    <input type="submit" value="Выход"/>
+                </form>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<section class="section">
+    <div class="sec_container">
+
+
+        <div>
+            <div th:each="el : ${message}">
+                    <p th:text="${el.getId()}"></p>
+                    <p th:text="${el.getSender()}"></p>
+                    <p th:text="${el.getHost()}"></p>
+                    <p th:text="${el.getText()}"></p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

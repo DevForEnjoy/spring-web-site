@@ -12,6 +12,9 @@
             <a class="header_logo" href="/home">Главная</a>
 
             <nav class="nav">
+                <form class="nav_link" action="\main">
+                    <input type="submit" value="Кабинет" />
+                </form>
                 <form class="nav_link" th:action="@{/logout}" method="post">
                     <input type="submit" value="Выход"/>
                 </form>
@@ -23,7 +26,7 @@
 <section class="section">
     <div class="sec_container">
 
-        <form th:action="@{/add}"  method="POST">
+        <form th:action="@{/main/add}"  method="POST">
             <p>Введите сообщение.</p>
 
             <div>
