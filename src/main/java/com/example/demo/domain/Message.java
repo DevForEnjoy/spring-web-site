@@ -15,7 +15,7 @@ public class Message {
     public Message(Long sender, Long host, Boolean file, String text) {
         this.sender = sender;
         this.host = host;
-        this.file = file;
+        this.isfile = file;
         this.text = text;
     }
 
@@ -25,8 +25,26 @@ public class Message {
 
     private Long sender;
     private Long host;
-    private boolean file;
+    private boolean isfile;
     private String text;
+
+    private String filename;
+
+    public boolean isIsfile() {
+        return isfile;
+    }
+
+    public void setIsfile(boolean isfile) {
+        this.isfile = isfile;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
     public Long getId() {
         return id;
@@ -53,11 +71,11 @@ public class Message {
     }
 
     public boolean isFile() {
-        return file;
+        return isfile;
     }
 
     public void setFile(boolean file) {
-        this.file = file;
+        this.isfile = file;
     }
 
     public String getText() {

@@ -26,7 +26,7 @@
 <section class="section">
     <div class="sec_container">
 
-        <form th:action="@{/main/add}"  method="POST">
+        <form th:action="@{/main/add}"  enctype="multipart/form-data" method="POST">
             <p>Введите сообщение.</p>
 
             <div>
@@ -38,21 +38,24 @@
                 <input type="number" name="host" id="Host" value="2">
             </div>
             <div>
-                <label for="File">Это файл?:</label>
-                <input type="checkbox"  name="file" id="File">
-
+                <label for="isFile">Это файл?:</label>
+                <input type="checkbox"  name="isfile" id="isFile">
             </div>
             <div>
                 <label for="Text">Текст:</label>
                 <input type="text" name="text" id="Text">
             </div>
-
+            <div>
+                <input type="file" name="file" id="File">
+            </div>
             <div>
                 <button type="submit">Отправить</button>
             </div>
         </form>
 
+
     </div>
+
 
 </section>
 

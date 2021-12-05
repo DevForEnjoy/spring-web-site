@@ -29,10 +29,14 @@
     </form>
 
     <div>
-        <div th:each="el : ${messages}">
-            <div th:if="${el.getSender()==2}">
+        <div th:each="el : ${messages}" class="message">
+            <div th:if="${el.getSender()==1}">
             <p th:text="${el.getSender()}"></p>
             <p th:text="${el.getText()}"></p>
+
+                <div th:if="${el.getFilename()!=null}">
+                    <img th:src="'/files/'+${el.getFilename()}">
+                </div>
             <a th:href="'/main/'+${el.getId()}">Детальнее</a>
             </div>
         </div>

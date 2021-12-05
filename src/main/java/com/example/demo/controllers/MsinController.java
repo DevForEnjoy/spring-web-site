@@ -6,32 +6,40 @@ import com.example.demo.domain.User;
 import com.example.demo.repos.MessageRepo;
 import com.example.demo.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class MsinController {
 
     @Autowired
     private MessageRepo messageRepo;
-
     @Autowired
     private UserRepository userRepository;
 
+    @Value("${upload.path}")
+    private String uploadPath;
+
     @GetMapping("/main")
-     public String mainCont(Model model) {
+     public String mainCont( Model model) {
+        model.addAttribute("name",userRepository.findByUsername("Admin"));
 
         Iterable<Message> messages = messageRepo.findAll();
         model.addAttribute("messages",messages);
-        model.addAttribute("name",userRepository.findByUsername("Admin"));
+
         return "main";
     }
     @GetMapping("/main/add")
@@ -39,12 +47,35 @@ public class MsinController {
 
     @PostMapping( "/main/add")
     public String add(@RequestParam Long sender, @RequestParam Long host,
-                      @RequestParam(required = false) boolean file,
-                      @RequestParam String text, Map<String, Object> model){
+                      @RequestParam(required = false) boolean isfile,
+                      @RequestParam String text,
+                      @RequestParam("file") MultipartFile file,
+                      Map<String, Object> model) throws IOException {
 
-        boolean b = file;
+
+
+        boolean b = isfile;
 
         Message message = new Message(sender, host,b,text);
+
+        if(file != null){
+
+           File uploadDir =  new File(uploadPath);
+
+           if(!uploadDir.exists()){
+               uploadDir.mkdir();
+           }
+           if(file.getOriginalFilename().length()==0){
+
+           }else{
+               String uuidFile = UUID.randomUUID().toString();
+               String resultFilename = uuidFile + "."+file.getOriginalFilename();
+
+               file.transferTo(new File(uploadPath +"/"+ resultFilename));
+
+               message.setFilename(resultFilename);
+           }
+        }
 
         messageRepo.save(message);
 

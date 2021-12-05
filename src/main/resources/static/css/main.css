@@ -44,10 +44,12 @@ body{
     height: max-content;
     padding-top: 20px;
 }
-.sec_container{
-    max-width:  95%;
+.sec_container {
+    max-width: 95%;
     height: max-content;
     margin: 0 auto;
     background: cornflowerblue;
-
+}
+.message{
+    border: solid forestgreen;
 }
