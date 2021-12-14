@@ -12,10 +12,10 @@ public class Message {
 
     }
 
-    public Message(Long sender, Long host, Boolean file, String text) {
+    public Message(Long sender, Long host, Boolean Doc, String text) {
         this.sender = sender;
         this.host = host;
-        this.isfile = file;
+        this.doc = Doc;
         this.text = text;
     }
 
@@ -25,26 +25,10 @@ public class Message {
 
     private Long sender;
     private Long host;
-    private boolean isfile;
+    private boolean doc;
     private String text;
 
     private String filename;
-
-    public boolean isIsfile() {
-        return isfile;
-    }
-
-    public void setIsfile(boolean isfile) {
-        this.isfile = isfile;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
 
     public Long getId() {
         return id;
@@ -70,12 +54,12 @@ public class Message {
         this.host = host;
     }
 
-    public boolean isFile() {
-        return isfile;
+    public boolean isDoc() {
+        return doc;
     }
 
-    public void setFile(boolean file) {
-        this.isfile = file;
+    public void setDoc(boolean doc) {
+        this.doc = doc;
     }
 
     public String getText() {
@@ -84,5 +68,21 @@ public class Message {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+    public String originName(){
+        String[] s = this.getFilename().split("\\.");
+        String reslname="";
+        for (int i = 1; i < s.length; i++) {
+            reslname+=s[i];
+        }
+        return  reslname;
     }
 }

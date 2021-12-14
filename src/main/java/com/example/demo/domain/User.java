@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.example.demo.repos.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

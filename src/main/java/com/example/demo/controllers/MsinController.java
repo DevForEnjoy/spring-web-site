@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 
 import com.example.demo.domain.Message;
-import com.example.demo.domain.User;
 import com.example.demo.repos.MessageRepo;
 import com.example.demo.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Controller
-public class MsinController {
+public class MsinController  {
 
     @Autowired
     private MessageRepo messageRepo;
@@ -47,39 +46,48 @@ public class MsinController {
 
     @PostMapping( "/main/add")
     public String add(@RequestParam Long sender, @RequestParam Long host,
-                      @RequestParam(required = false) boolean isfile,
                       @RequestParam String text,
                       @RequestParam("file") MultipartFile file,
                       Map<String, Object> model) throws IOException {
 
+        Message message = new Message(sender, host,false,text);
 
-
-        boolean b = isfile;
-
-        Message message = new Message(sender, host,b,text);
-
-        if(file != null){
+        if(file != null && !file.getOriginalFilename().isEmpty()){
 
            File uploadDir =  new File(uploadPath);
+
+           message.setDoc(isPic(file.getOriginalFilename()));
 
            if(!uploadDir.exists()){
                uploadDir.mkdir();
            }
-           if(file.getOriginalFilename().length()==0){
 
-           }else{
                String uuidFile = UUID.randomUUID().toString();
                String resultFilename = uuidFile + "."+file.getOriginalFilename();
 
                file.transferTo(new File(uploadPath +"/"+ resultFilename));
 
                message.setFilename(resultFilename);
-           }
-        }
+            }
 
         messageRepo.save(message);
 
         return "main-add";
+    }
+
+    public boolean isPic(String str){
+
+        String img = "img";
+        String png = "png";
+        String jpg = "jpg";
+        String[] s = str.split("\\.");
+
+        if(img.equals(s[s.length-1]) ||
+            jpg.equals(s[s.length-1]) ||
+                png.equals(s[s.length-1])) {
+            return false;
+        }
+        else return true;
     }
 
     @GetMapping("/main/{id}")

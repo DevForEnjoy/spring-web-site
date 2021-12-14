@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+
 import com.example.demo.domain.Role;
 import com.example.demo.servise.UserServise;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .password("{noop}pass")
                 .roles("USER");
 
-        auth.userDetailsService(userServise)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+//        auth.userDetailsService(userServise)
+//                .passwordEncoder(NoOpPasswordEncoder.getInstance());
 
     }
 
