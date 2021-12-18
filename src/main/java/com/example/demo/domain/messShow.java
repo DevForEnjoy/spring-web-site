@@ -19,6 +19,7 @@ public class messShow extends Message {
         super(m.getSender(),m.getHost(),m.isDoc(),m.getText(),m.getDate());
         this.author = author;
         this.hostSh = hostsh;
+        this.setFilename(m.getFilename());
 
     }
     public messShow() {
