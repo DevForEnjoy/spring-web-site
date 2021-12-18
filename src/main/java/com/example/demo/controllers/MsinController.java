@@ -2,10 +2,13 @@ package com.example.demo.controllers;
 
 
 import com.example.demo.domain.Message;
+import com.example.demo.domain.User;
+import com.example.demo.domain.messShow;
 import com.example.demo.repos.MessageRepo;
 import com.example.demo.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class MsinController  {
@@ -32,25 +32,67 @@ public class MsinController  {
     @Value("${upload.path}")
     private String uploadPath;
 
+    public String findbyID(long id){
+
+        Iterable<User> users = userRepository.findAll();
+
+        for (User u : users) {
+            if(u.getId().equals(id)){
+                return u.getUsername();
+            }
+        }
+        return "";
+    }
+
     @GetMapping("/main")
-     public String mainCont( Model model) {
-        model.addAttribute("name",userRepository.findByUsername("Admin"));
+     public String mainCont(Model model, Authentication authentication) {
+
+        String name = authentication.getName();
+        User user = userRepository.findByUsername(name);
+
+        model.addAttribute("name",user.getUsername());
+        model.addAttribute("role",user.getRoles().toString());
+        model.addAttribute("id_u",user.getId());
 
         Iterable<Message> messages = messageRepo.findAll();
-        model.addAttribute("messages",messages);
+
+        ArrayList<messShow> rev = new ArrayList<>();
+
+        for (Message message : messages) {
+            rev.add(0,new messShow(findbyID(message.getSender()),findbyID(message.getHost()),message));
+        }
+
+
+        model.addAttribute("messages",rev);
 
         return "main";
     }
     @GetMapping("/main/add")
-    public String mainAdd(Model model){ return "main-add";}
+    public String mainAdd(Model model)
+    {
+        ArrayList<String> s = new ArrayList<>();
+        Iterable<User> users = userRepository.findAll();
+
+        for (User u : users) {
+            s.add(u.getUsername());
+        }
+
+        model.addAttribute("users",s);
+        return "main-add";
+    }
 
     @PostMapping( "/main/add")
-    public String add(@RequestParam Long sender, @RequestParam Long host,
+    public String add( @RequestParam String host,
                       @RequestParam String text,
                       @RequestParam("file") MultipartFile file,
-                      Map<String, Object> model) throws IOException {
+                      Map<String, Object> model,
+                      Authentication authentication) throws IOException {
 
-        Message message = new Message(sender, host,false,text);
+        String name = authentication.getName();
+        User user = userRepository.findByUsername(name);
+        User user2 = userRepository.findByUsername(host);
+
+        Message message = new Message(user.getId(), user2.getId(),false,text,new Date());
 
         if(file != null && !file.getOriginalFilename().isEmpty()){
 

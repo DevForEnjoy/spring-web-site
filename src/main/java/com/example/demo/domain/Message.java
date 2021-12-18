@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 public class Message {
@@ -12,11 +13,12 @@ public class Message {
 
     }
 
-    public Message(Long sender, Long host, Boolean Doc, String text) {
+    public Message(Long sender, Long host, Boolean Doc, String text,Date d) {
         this.sender = sender;
         this.host = host;
         this.doc = Doc;
         this.text = text;
+        this.date = d;
     }
 
     @Id
@@ -27,8 +29,19 @@ public class Message {
     private Long host;
     private boolean doc;
     private String text;
+    private Date date;
 
     private String filename;
+
+
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setId(Date date) {
+        this.date = date;
+    }
 
     public Long getId() {
         return id;

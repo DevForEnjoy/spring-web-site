@@ -28,19 +28,11 @@
 
         <form th:action="@{/main/add}"  enctype="multipart/form-data" method="POST">
             <p>Введите сообщение.</p>
-
             <div>
-                <label for="Sender">Отправитель:</label>
-                <input type="number" name="sender" id="Sender" value="1">
+                <select name="host" id="Host">
+                    <option  th:each="el:${users}" th:text="${el}"></option>
+                </select>
             </div>
-            <div>
-                <label for="Host">Получатель:</label>
-                <input type="number" name="host" id="Host" value="2">
-            </div>
-<!--            <div>-->
-<!--                <label for="isFile">Это файл?:</label>-->
-<!--                <input type="checkbox"  name="isfile" id="isFile">-->
-<!--            </div>-->
             <div>
                 <label for="Text">Текст:</label>
                 <input type="text" name="text" id="Text">

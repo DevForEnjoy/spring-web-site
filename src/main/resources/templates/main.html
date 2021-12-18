@@ -22,32 +22,82 @@
 
 <section class="section">
 <div class="sec_container">
-  <p th:text="'Hello, ' + ${name.getUsername()}+'!'"></p>
+  <p th:text="'Hello, ' + ${name}+'!'"></p>
 
     <form action="main\add">
-        <input type="submit" value="Создать Сообщение" />
+        <input type="submit" value="Отправить Сообщение" />
     </form>
 
     <div>
-        <div th:each="el : ${messages}" class="message">
-            <div th:if="${el.getSender()==1}">
-            <p th:text="${el.getSender()}"></p>
-            <p th:text="${el.getText()}"></p>
+        <details>
+            <summary>Входящие</summary>
+            <div th:each="el : ${messages}" class="message">
+                <div th:if="${el.getHost()==id_u}">
+                <p th:text="${'Отправитель:'+el.getAuthor()}"></p>
+                <p th:text="${el.getText()}"></p>
 
-                <div th:if="${el.getFilename()!=null}">
-                    <div th:if="${!el.isDoc()}">
-                        <img th:src="'/files/'+${el.getFilename()}">
-                        <p><a th:href="'/files/'+${el.getFilename()}" download>Скачать картинку</a>
-                    </div>
-                    <div th:if="${el.isDoc()}">
-                        <p><a th:href="'/files/'+${el.getFilename()}" th:text="${el.originName()}" download>
+                    <div th:if="${el.getFilename()!=null}">
+                        <div th:if="${!el.isDoc()}">
+                            <img style="object-fit: contain;" th:src="'/files/'+${el.getFilename()}">
+                            <p><a th:href="'/files/'+${el.getFilename()}" download>Скачать картинку</a>
+                        </div>
+                        <div th:if="${el.isDoc()}">
+                            <p><a th:href="'/files/'+${el.getFilename()}" th:text="${el.originName()}" download>
 
-                        </a>
+                            </a>
+                        </div>
                     </div>
+                <a th:href="'/main/'+${el.getId()}">Детальнее</a>
                 </div>
-            <a th:href="'/main/'+${el.getId()}">Детальнее</a>
             </div>
-        </div>
+        </details>
+
+        <details>
+            <summary>Исходящие</summary>
+            <div th:each="el : ${messages}" class="message">
+                <div th:if="${el.getSender()==id_u}">
+                    <p th:text="${'Адресат:'+el.getHostSh()}"></p>
+                    <p th:text="${el.getText()}"></p>
+
+                    <div th:if="${el.getFilename()!=null}">
+                        <div th:if="${!el.isDoc()}">
+                            <img style="object-fit: contain;" th:src="'/files/'+${el.getFilename()}">
+                            <p><a th:href="'/files/'+${el.getFilename()}" download>Скачать картинку</a>
+                        </div>
+                        <div th:if="${el.isDoc()}">
+                            <p><a th:href="'/files/'+${el.getFilename()}" th:text="${el.originName()}" download>
+
+                            </a>
+                        </div>
+                    </div>
+                    <a th:href="'/main/'+${el.getId()}">Детальнее</a>
+                </div>
+            </div>
+        </details>
+        <details th:if="${role=='[ADMIN]'}">
+            <summary>Сообщения пользователей</summary>
+            <div th:each="el : ${messages}" class="message">
+                <div >
+                    <p th:text="${'Отправитель:'+ el.getAuthor()}"></p>
+                    <p th:text="${'Адресат:'+el.getHostSh()}"></p>
+                    <p th:text="${el.getText()}"></p>
+                    <p th:text="${el.getDate()}"></p>
+
+                    <div th:if="${el.getFilename()!=null}">
+                        <div th:if="${!el.isDoc()}">
+                            <img style="object-fit: contain;" th:src="'/files/'+${el.getFilename()}">
+                            <p><a th:href="'/files/'+${el.getFilename()}" download>Скачать картинку</a>
+                        </div>
+                        <div th:if="${el.isDoc()}">
+                            <p><a th:href="'/files/'+${el.getFilename()}" th:text="${el.originName()}" download>
+
+                            </a>
+                        </div>
+                    </div>
+                    <a th:href="'/main/'+${el.getId()}">Детальнее</a>
+                </div>
+            </div>
+        </details>
     </div>
 </div>
 
