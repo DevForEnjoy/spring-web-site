@@ -20,6 +20,7 @@ public class messShow extends Message {
         this.author = author;
         this.hostSh = hostsh;
         this.setFilename(m.getFilename());
+        this.setId(m.getId());
 
     }
     public messShow() {

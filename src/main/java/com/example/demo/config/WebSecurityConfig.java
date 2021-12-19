@@ -23,19 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.inMemoryAuthentication()
-                .withUser("Admin")
-                .roles("ADMIN")
-                .password("{noop}p")
-                .and()
-                .withUser("user2")
-                .password("{noop}pass")
-                .roles("USER");
-
         auth.userDetailsService(userServise)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
-
 
     }
 
@@ -51,13 +40,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/files/**"
         };
 
+        http
+                .cors().disable()
+                .csrf().disable();
+
         http.authorizeRequests().antMatchers(staticResources).permitAll();
 
         http.authorizeRequests()
                 .antMatchers("/", "/registration", "/home","/logout").permitAll()
                 .antMatchers("/logout").hasAnyAuthority()
-//                .antMatchers("/main","/main/add").hasAnyRole("USER","ADMIN")
-//                .antMatchers("/**").hasRole("ADMIN")
+                .antMatchers("/main","/main/add").hasAnyAuthority("USER","ADMIN")
+                .antMatchers("/**").hasAnyAuthority("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")
