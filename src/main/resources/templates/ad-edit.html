@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ЭДО</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header_inner">
+            <a class="header_logo" href="/home">Главная</a>
+
+            <nav class="nav">
+                <form class="nav_link" action="\main">
+                    <input type="submit" value="Кабинет" />
+                </form>
+                <form class="nav_link" th:action="@{/logout}" method="post">
+                    <input type="submit" value="Выход"/>
+                </form>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<section class="section">
+    <div class="sec_container">
+
+        <form enctype="multipart/form-data" method="POST">
+            <p>Ред. объявление</p>
+
+            <div th:each="el : ${ad}">
+                <label for="Text">Текст:</label>
+                <input type="text" th:value="${el.getText()}" name="text" id="Text">
+            </div>
+            <div>
+                <input type="file" name="file" id="File">
+            </div>
+            <div>
+                <button type="submit">Отправить</button>
+            </div>
+        </form>
+
+
+    </div>
+
+
+</section>
+
+</body>
+</html>

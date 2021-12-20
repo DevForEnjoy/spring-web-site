@@ -143,6 +143,7 @@ public class MsinController  {
         return "main-details";
     }
 
+
 @GetMapping(path = "/all")
 public Iterable<Message> getMessages(){
     return messageRepo.findAll();

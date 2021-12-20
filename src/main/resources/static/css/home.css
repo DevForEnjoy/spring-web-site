@@ -2,10 +2,10 @@ body{
     width: 99%;
     height: 100vh;
 
-    background: url("../img/back.jpg") center
-    no-repeat;
+    background: url("../img/back.jpg") no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
+    background-attachment: local;
 
 }
 .container{
@@ -70,10 +70,17 @@ body{
     height: 50%;
     padding-top: 20px;
 }
-.sec_container{
-    max-width:  95%;
-    height: 100%;
+.sec_container {
+    max-width: 95%;
+    height: fit-content;
     margin: 0 auto;
-    background: rgb(11,0,189);
-    background: linear-gradient(0deg, rgba(11,0,189,1) 0%, rgba(0,0,203,1) 16%, rgba(0,212,255,1) 100%);
+    background: cornflowerblue;
+}
+
+.message{
+    border: solid forestgreen;
+}
+.image{
+    object-fit: contain;
+    width: 50%;
 }

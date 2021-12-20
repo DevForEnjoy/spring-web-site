@@ -7,8 +7,9 @@
 </head>
 <body>
 <p th:text="${message}"></p>
-<form class="form" th:action="@{/registration}" method="post">
-    <h1>Регистрация </h1>
+
+<form class="form" th:action="@{/main/registrationAdmin}" method="post">
+    <h1>Регистрация Администратора</h1>
 
     <div class="input-form">
         <label> ФИО  <input type="text" name="username"/>
@@ -21,5 +22,12 @@
     <div class="input-form">
         <input type="submit" value="Зарегестрироваться"/></div>
 </form>
+
+<form action="/main">
+    <div class="input-form">
+        <input type="submit" value="Назад" />
+    </div>
+</form>
+
 </body>
 </html>

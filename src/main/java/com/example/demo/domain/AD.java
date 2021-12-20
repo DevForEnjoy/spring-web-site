@@ -1,0 +1,89 @@
+package com.example.demo.domain;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
+
+@Entity
+public class AD {
+
+    public AD() {
+
+    }
+
+    public AD(Long sender, Boolean Doc, String text, Date d) {
+        this.sender = sender;
+        this.doc = Doc;
+        this.text = text;
+        this.date = d;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private Long sender;
+    private boolean doc;
+    private String text;
+    private Date date;
+
+    private String filename;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setId(Date date) {
+        this.date = date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getSender() {
+        return sender;
+    }
+
+    public void setSender(Long sender) {
+        this.sender = sender;
+    }
+
+    public boolean isDoc() {
+        return doc;
+    }
+
+    public void setDoc(boolean doc) {
+        this.doc = doc;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+    public String originName(){
+        String[] s = this.getFilename().split("\\.");
+        String reslname="";
+        for (int i = 1; i < s.length; i++) {
+            reslname+=s[i];
+        }
+        return  reslname;
+    }
+}

@@ -36,4 +36,25 @@ public class RegistrationController {
         userRepository.save(user);
         return "home";
     }
+
+    @GetMapping("/main/registrationAdmin")
+    public String registrationAdmin(){
+        return "registrationAdmin";
+    }
+
+    @PostMapping("/main/registrationAdmin")
+    public String addAdmin(User user, Map<String,Object> model)
+    {
+        User userFromDb = userRepository.findByUsername(user.getUsername());
+
+        if(userFromDb != null)
+        {
+            model.put("message","Пользователь с данным именем уже существует");
+            return "registrationAdmin";
+        }
+        user.setActive(true);
+        user.setRoles(Collections.singleton(Role.ADMIN));
+        userRepository.save(user);
+        return "registrationAdmin";
+    }
 }

@@ -53,3 +53,7 @@ body{
 .message{
     border: solid forestgreen;
 }
+.image{
+    object-fit: contain;
+    width: 50%;
+}

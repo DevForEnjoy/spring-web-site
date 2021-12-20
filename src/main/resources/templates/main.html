@@ -12,6 +12,12 @@
             <a class="header_logo" href="/home">Главная</a>
 
             <nav class="nav">
+                <form th:if="${role=='[ADMIN]'}" class="nav_link" action="main\addAD">
+                    <input type="submit" value="Создать Объявления" />
+                </form>
+                <form th:if="${role=='[ADMIN]'}" class="nav_link" action="main\registrationAdmin">
+                    <input type="submit" value="Регистрация Администратора" />
+                </form>
               <form class="nav_link" th:action="@{/logout}" method="post">
                  <input type="submit" value="Выход"/>
              </form>
@@ -38,7 +44,7 @@
 
                     <div th:if="${el.getFilename()!=null}">
                         <div th:if="${!el.isDoc()}">
-                            <img style="object-fit: contain;" th:src="'/files/'+${el.getFilename()}">
+                            <img class="image" th:src="'/files/'+${el.getFilename()}">
                             <p><a th:href="'/files/'+${el.getFilename()}" download>Скачать картинку</a>
                         </div>
                         <div th:if="${el.isDoc()}">
@@ -47,7 +53,6 @@
                             </a>
                         </div>
                     </div>
-                <a th:href="'/main/'+${el.getId()}">Детальнее</a>
                 </div>
             </div>
         </details>
@@ -61,7 +66,7 @@
 
                     <div th:if="${el.getFilename()!=null}">
                         <div th:if="${!el.isDoc()}">
-                            <img style="object-fit: contain;" th:src="'/files/'+${el.getFilename()}">
+                            <img class="image" th:src="'/files/'+${el.getFilename()}">
                             <p><a th:href="'/files/'+${el.getFilename()}" download>Скачать картинку</a>
                         </div>
                         <div th:if="${el.isDoc()}">
@@ -85,7 +90,7 @@
 
                     <div th:if="${el.getFilename()!=null}">
                         <div th:if="${!el.isDoc()}">
-                            <img style="object-fit: contain;" th:src="'/files/'+${el.getFilename()}">
+                            <img class="image" th:src="'/files/'+${el.getFilename()}">
                             <p><a th:href="'/files/'+${el.getFilename()}" download>Скачать картинку</a>
                         </div>
                         <div th:if="${el.isDoc()}">
@@ -98,6 +103,8 @@
                 </div>
             </div>
         </details>
+
+
     </div>
 </div>
 
