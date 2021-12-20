@@ -177,5 +177,15 @@ public class homeController {
 
         return "home-addAD";
     }
+    @PostMapping( "/home/{id}/remove")
+    public String addRem(@PathVariable(value = "id") long id,
+                         Map<String, Object> model,
+                         Authentication authentication) throws IOException {
 
+
+        AD ad = ad_repo.findById(id).orElse(new AD());
+        ad_repo.delete(ad);
+
+        return "home";
+    }
 }

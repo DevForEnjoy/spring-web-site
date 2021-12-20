@@ -43,7 +43,10 @@
                     </div>
                 </div>
                 <a class="btn btn-success" th:if="${role=='[ADMIN]'}" th:href="'/home/'+${el.getId()}+'/edit'">Редактировать</a>
-                <a class="btn btn-danger" th:if="${role=='[ADMIN]'}" th:href="'/home/'+${el.getId()}+'/remove'">Удалить</a>
+                <form th:action="'/home/'+${el.getId()}+'/remove'" tion method="post">
+                    <button class="btn btn-danger" th:if="${role=='[ADMIN]'}" type="submit">Удалить</button>
+                </form>
+
             </div>
         </div>
 
